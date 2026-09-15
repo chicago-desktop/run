@@ -1,0 +1,12 @@
+{
+  "templateVersion": 1,
+  "initialized": true,
+  "identity": {
+    "organization": "windows",
+    "module": "run",
+    "namespace": "windows.run",
+    "tag": "windows-run",
+    "title": "Run",
+    "githubOwner": "wippy-windows"
+  }
+}

@@ -1,0 +1,91 @@
+version: "1.0"
+namespace: windows.run
+
+# "Run…" — the Start menu's run dialog of the Windows 95 shell
+# (windows/shell), moved out of the shell into a module of its own. A dialog
+# on the shell SDK: a command field, "OK", "Cancel", "Browse…". Enter or
+# "OK" launches the command in a Bash window of the desktop base — the base's
+# stock PTY window — through the compositor; the dialog itself has no
+# permission to spawn anything. The only thing of its own here is the launch
+# spec (`model`); layout, renderer and line editor come from
+# `windows.shell.sdk`.
+#
+# Keep the comments of this file free of an unquoted `: ` — a colon followed
+# by a space inside a meta.comment or a YAML comment value breaks the parse
+# of the whole index, and the boot with it. Quote such comments.
+
+entries:
+  - name: definition
+    kind: ns.definition
+    meta:
+      title: Run
+      description: "The Start menu's Run… dialog of the Windows 95 shell — a command field that launches the command in its own Bash window."
+
+  # ─── Dependencies ────────────────────────────────────────────────────
+  # A compatibility range, never an exact version: the lock holds the exact
+  # one. `*` is any published version.
+  - version: "*"
+    name: dep.windows.shell
+    kind: ns.dependency
+    meta:
+      comment: The Windows 95 shell — its SDK lays out and draws the dialog, its image pack brings the picture, its explorer is what Browse… opens.
+    component: windows/shell
+
+  - version: "*"
+    name: dep.windows.tui_desktop
+    kind: ns.dependency
+    meta:
+      comment: The desktop base — the compositor that opens the Bash window the command runs in (its stock PTY window).
+    component: windows/tui-desktop
+
+  # windows.run:model
+  - name: model
+    kind: library.lua
+    meta:
+      comment: The spec for launching a command through the base module's standard PTY window.
+    source: file://model.lua
+
+  # windows.run:window
+  #
+  # The Start menu finds a `process.lua` with `meta.type: tui_desktop.window`.
+  # `group: ""` puts it at the root of Start (without a group it would go to
+  # "Programs"); `image` names the shell's own picture `run`, `icon` its
+  # character for a terminal without graphics; `window_type: dialog` and
+  # `resizable: false` make it a fixed dialog. `pixel_render` + `pixel_state`
+  # make the window draw through the shell's shared renderer in graphics
+  # mode; in cells the same process draws.
+  - name: window
+    kind: process.lua
+    meta:
+      type: tui_desktop.window
+      title: Run…
+      image: run
+      icon: "▸"
+      order: 900
+      # The root of "Start" explicitly: without group the program would go to "Programs".
+      group: ""
+      in_menu: true
+      window_type: dialog
+      resizable: false
+      # After the Windows 95 reference: a 32 px icon, two hint lines at the
+      # font's line step, a field, three buttons at the right edge. The client
+      # is 48×7 cells: the hint in a 13 px font is 310 px, and a cell can be
+      # 8 px (the owner's terminal), so in 41 cells the hint barely fits; in
+      # 35 it was cut off with an ellipsis.
+      width: 50
+      height: 10
+      pixel_render: windows.shell.sdk:render
+      pixel_state: windows.run:window
+      comment: Enter a command and launch it in a separate Bash window through the compositor; a dialog on the shell SDK.
+    source: file://window.lua
+    method: main
+    imports:
+      app: windows.shell.sdk:app
+      desktop: windows.tui_desktop.desktop:window_api
+      model: windows.run:model
+    # The shell's policy for a view window's state provider: the process
+    # context, the compositor's name in the process registry, sending it
+    # the state. The dialog has no exec or spawn permission of its own: the
+    # launch is a request to the compositor.
+    security:
+      policies: [windows.shell.security:view_state]
