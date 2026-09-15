@@ -2,11 +2,11 @@
   "templateVersion": 1,
   "initialized": true,
   "identity": {
-    "organization": "windows",
+    "organization": "chicago",
     "module": "run",
-    "namespace": "windows.run",
-    "tag": "windows-run",
+    "namespace": "chicago.run",
+    "tag": "chicago-run",
     "title": "Run",
-    "githubOwner": "wippy-windows"
+    "githubOwner": "chicago-desktop"
   }
 }

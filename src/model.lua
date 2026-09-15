@@ -1,8 +1,8 @@
 -- The launch spec through the base module's standard PTY window; there are
 -- no launch permissions. The dialog's line editor is not its own: it comes
--- from `windows.shell.sdk:editor`.
+-- from `chicago.shell.sdk:editor`.
 local model = {}
-model.PTY = "windows.tui_desktop.desktop:window_pty"
+model.PTY = "chicago.tui_desktop.desktop:window_pty"
 
 function model.spec(text)
     local command = tostring(text or ""):match("^%s*(.-)%s*$")

@@ -1,7 +1,7 @@
 version: "1.0"
 namespace: app
 
-# Standalone harness for windows/run. Provides the host resources
+# Standalone harness for chicago/run. Provides the host resources
 # the boot needs (app:db, app:processes, a gateway and a router for the
 # shell's endpoints, env storage, a permissive actor scope) and runs the
 # co-located *_test.lua suites. Excluded from publish by the module's
@@ -23,15 +23,15 @@ entries:
       type: test
       comment: "The Run dialog — the launch spec, the SDK layout and the default-button rule, Browse… against a substituted compositor, the real Start menu and a real Bash under a PTY that survives the dialog closing, Esc in cells mode."
       group: Run
-      suite: windows_run
+      suite: chicago_run
     source: file://run_test.lua
     method: run
     modules: [process, channel, time, tty, fs, gfx]
     imports:
       test: wippy.test:test
-      model: windows.run:model
-      ui: windows.shell.sdk:ui
-      run_window: windows.run:window
+      model: chicago.run:model
+      ui: chicago.shell.sdk:ui
+      run_window: chicago.run:window
 
   - name: run_composer
     kind: process.lua
@@ -41,10 +41,10 @@ entries:
     method: main
     modules: [process, fs, gfx]
     imports:
-      library: windows.tui_desktop.desktop:library
-      chrome: windows.shell.theme:chrome_pixels
-      cell_chrome: windows.shell.theme:chrome
-      catalog: windows.shell.programs:catalog
+      library: chicago.tui_desktop.desktop:library
+      chrome: chicago.shell.theme:chrome_pixels
+      cell_chrome: chicago.shell.theme:chrome
+      catalog: chicago.shell.programs:catalog
 
   - name: window_test
     kind: function.lua
@@ -52,7 +52,7 @@ entries:
       type: test
       comment: "The dialog's registry entry as the Start menu reads it (Run… at the root, a dialog, the module's own picture found by the shell), the process running the definition, and test/shots/run.png drawn by the shell's renderer."
       group: Run
-      suite: windows_run
+      suite: chicago_run
     source: file://window_test.lua
     method: run
     # Reading an image pack takes `registry.get` as well as `fs.get`,
@@ -61,12 +61,12 @@ entries:
     modules: [gfx, fs, registry]
     imports:
       test: wippy.test:test
-      app: windows.shell.sdk:app
-      ui: windows.shell.sdk:ui
-      render: windows.shell.sdk:render
-      rasters: windows.shell.theme:rasters
-      images: windows.shell.theme:images
-      window: windows.run:window
+      app: chicago.shell.sdk:app
+      ui: chicago.shell.sdk:ui
+      render: chicago.shell.sdk:render
+      rasters: chicago.shell.theme:rasters
+      images: chicago.shell.theme:images
+      window: chicago.run:window
 
   - name: shots
     kind: fs.directory
@@ -132,7 +132,7 @@ entries:
     kind: ns.dependency
     meta:
       comment: The module under test; its source is replaced with ../ in .wippy.yaml.
-    component: "windows/run"
+    component: "chicago/run"
 
   - name: run_harness.dep.migration
     version: "*"

@@ -37,11 +37,11 @@ end
 -- into the field (the explorer has no "pick a file" mode), so "Browse…" is a
 -- road to the explorer, not a picker dialog.
 --
--- The explorer stays in the shell (windows/shell); this module only names
+-- The explorer stays in the shell (chicago/shell); this module only names
 -- its entry. It is asked for through the compositor, so nothing here imports
 -- it — a shell without the explorer answers the request with a refusal that
 -- the dialog shows in place of the hint.
-local EXPLORER = "windows.shell.explorer:window"
+local EXPLORER = "chicago.shell.explorer:window"
 
 -- The window title is "Run", without an ellipsis: the ellipsis belongs to the
 -- menu item, it promises a dialog, and the dialog itself is named without
@@ -51,7 +51,7 @@ definition.title = "Run"
 function definition.view(state: any, context: any): any
     return {kind = "column", padding = 1, padding_bottom = 0, gap = 0, children = {
         {kind = "row", size = 2, gap = 1, children = {
-            {kind = "image", size = 4, image = "windows.run:images/run", icon = "▸", size_px = 32},
+            {kind = "image", size = 4, image = "chicago.run:images/run", icon = "▸", size_px = 32},
             -- A failure takes the place of the hint: a separate line under the
             -- buttons pushed them away from the frame, and the hint is not
             -- needed at the moment of a failure.

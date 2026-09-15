@@ -11,7 +11,7 @@ local chrome = require("chrome")
 local cell_chrome = require("cell_chrome")
 local catalog = require("catalog")
 
-local RUN = "windows.run:window"
+local RUN = "chicago.run:window"
 
 local function main(service, observer, mode)
     local files = assert(fs.get("app:system_fonts"))

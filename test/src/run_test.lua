@@ -15,7 +15,7 @@ local model = require("model")
 local ui = require("ui")
 local run_window = require("run_window")
 
-local RUN = "windows.run:window"
+local RUN = "chicago.run:window"
 
 -- A label's text from the SDK tree by match: this way the check does not
 -- depend on the line's position in the column.
@@ -63,7 +63,7 @@ end
 -- The live compositor (test/src/run_composer.lua) on a viewport of the
 -- test's, registered under a name of its own per mode.
 local function boot(mode)
-    local service = "windows.run.test." .. mode
+    local service = "chicago.run.test." .. mode
     local view = assert(tty.viewport({width = 100, height = 34}))
     local pid, spawn_error = process.with_options({terminal = assert(view:grant())})
         :spawn_monitored("app:run_composer", "app:processes", service, tostring(process.pid()), mode)
@@ -144,7 +144,7 @@ local function define_tests()
             run_window.definition.update(state, {type = "activate", id = "browse"}, context)
             test.not_nil(asked)
             test.eq(asked.command, "desktop.open")
-            test.eq(asked.body.entry, "windows.shell.explorer:window", "the explorer stays in the shell; the dialog names its entry")
+            test.eq(asked.body.entry, "chicago.shell.explorer:window", "the explorer stays in the shell; the dialog names its entry")
             test.is_true(state.browsing)
             run_window.definition.update(state, {type = "channel", channel = "replies", ok = true,
                 value = {command = "desktop.open", ok = true}}, context)

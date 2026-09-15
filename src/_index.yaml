@@ -1,14 +1,14 @@
 version: "1.0"
-namespace: windows.run
+namespace: chicago.run
 
 # "Run…" — the Start menu's run dialog of the Windows 95 shell
-# (windows/shell), moved out of the shell into a module of its own. A dialog
+# (chicago/shell), moved out of the shell into a module of its own. A dialog
 # on the shell SDK: a command field, "OK", "Cancel", "Browse…". Enter or
 # "OK" launches the command in a Bash window of the desktop base — the base's
 # stock PTY window — through the compositor; the dialog itself has no
 # permission to spawn anything. The only thing of its own here is the launch
 # spec (`model`); layout, renderer and line editor come from
-# `windows.shell.sdk`.
+# `chicago.shell.sdk`.
 #
 # Keep the comments of this file free of an unquoted `: ` — a colon followed
 # by a space inside a meta.comment or a YAML comment value breaks the parse
@@ -25,47 +25,47 @@ entries:
   # A compatibility range, never an exact version: the lock holds the exact
   # one. `*` is any published version.
   - version: "*"
-    name: dep.windows.shell
+    name: dep.chicago.shell
     kind: ns.dependency
     meta:
       comment: The Windows 95 shell — its SDK lays out and draws the dialog and resolves the module's image pack, its explorer is what Browse… opens.
-    component: windows/shell
+    component: chicago/shell
 
   - version: "*"
-    name: dep.windows.tui_desktop
+    name: dep.chicago.tui_desktop
     kind: ns.dependency
     meta:
       comment: The desktop base — the compositor that opens the Bash window the command runs in (its stock PTY window).
-    component: windows/tui-desktop
+    component: chicago/tui-desktop
 
-  # windows.run:images
+  # chicago.run:images
   #
   # The shell finds an image pack in the registry by its meta.type and names a
-  # picture `<entry>/<file>`: `windows.run:images/run`. PNG in 32/ and 16/
+  # picture `<entry>/<file>`: `chicago.run:images/run`. PNG in 32/ and 16/
   # under assets/images; packed only because wippy.yaml lists the entry
   # under `embed:`.
   - name: images
     kind: fs.directory
     meta:
-      type: windows.images
+      type: chicago.images
       comment: "The Run dialog's pictures — the run icon at 32 and 16 px, an image pack of the shell."
     base: module
     directory: ./assets/images
     auto_init: false
 
-  # windows.run:model
+  # chicago.run:model
   - name: model
     kind: library.lua
     meta:
       comment: The spec for launching a command through the base module's standard PTY window.
     source: file://model.lua
 
-  # windows.run:window
+  # chicago.run:window
   #
   # The Start menu finds a `process.lua` with `meta.type: tui_desktop.window`.
   # `group: ""` puts it at the root of Start (without a group it would go to
   # "Programs"); `image` names the module's own picture
-  # `windows.run:images/run`, `icon` its
+  # `chicago.run:images/run`, `icon` its
   # character for a terminal without graphics; `window_type: dialog` and
   # `resizable: false` make it a fixed dialog. `pixel_render` + `pixel_state`
   # make the window draw through the shell's shared renderer in graphics
@@ -75,7 +75,7 @@ entries:
     meta:
       type: tui_desktop.window
       title: Run…
-      image: windows.run:images/run
+      image: chicago.run:images/run
       icon: "▸"
       order: 900
       # The root of "Start" explicitly: without group the program would go to "Programs".
@@ -90,18 +90,18 @@ entries:
       # 35 it was cut off with an ellipsis.
       width: 50
       height: 10
-      pixel_render: windows.shell.sdk:render
-      pixel_state: windows.run:window
+      pixel_render: chicago.shell.sdk:render
+      pixel_state: chicago.run:window
       comment: Enter a command and launch it in a separate Bash window through the compositor; a dialog on the shell SDK.
     source: file://window.lua
     method: main
     imports:
-      app: windows.shell.sdk:app
-      desktop: windows.tui_desktop.desktop:window_api
-      model: windows.run:model
+      app: chicago.shell.sdk:app
+      desktop: chicago.tui_desktop.desktop:window_api
+      model: chicago.run:model
     # The shell's policy for a view window's state provider: the process
     # context, the compositor's name in the process registry, sending it
     # the state. The dialog has no exec or spawn permission of its own: the
     # launch is a request to the compositor.
     security:
-      policies: [windows.shell.security:view_state]
+      policies: [chicago.shell.security:view_state]

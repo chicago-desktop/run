@@ -7,9 +7,9 @@ field and the buttons; the field supports arrows, Home/End, Backspace/Delete
 and Ctrl+A.
 
 The Bash window is the desktop base's stock terminal window
-`windows.tui_desktop.desktop:window_pty` — the same one "Start → Programs →
+`chicago.tui_desktop.desktop:window_pty` — the same one "Start → Programs →
 Bash" opens. There is no copy of the PTY process in this module: the dialog
-names the base's entry in its launch spec (`windows.run:model`, `model.PTY`).
+names the base's entry in its launch spec (`chicago.run:model`, `model.PTY`).
 
 The command runs through `/bin/bash -ic`: arguments, quotes, variables,
 pipelines and Bash's interactive setup are available. After the command
@@ -21,7 +21,7 @@ PATH.
 ## What the application has to provide
 
 Bash starts with `-i` and reads `~/.bashrc`. The application passes `HOME`
-and `PATH` to the base's executor `windows.tui_desktop:exec` through
+and `PATH` to the base's executor `chicago.tui_desktop:exec` through
 `default_env`: `exec.native` itself does not inherit the OS environment.
 Without these variables programs from `~/.local/bin` (for example, `claude`,
 `codex`) give `command not found`, even when they are installed for the
@@ -34,7 +34,7 @@ server, under the OS account); the base's entry declares
 person's scope for it. A person whose scope has no exec right is refused a
 Bash with the reason on the desktop — and the dialog shows the compositor's
 refusal in place of its hint. The dialog itself needs nothing beyond the
-shell's `windows.shell.security:view_state` policy: it has no `exec.run` or
+shell's `chicago.shell.security:view_state` policy: it has no `exec.run` or
 `process.spawn` permissions.
 
 ## How it is built
@@ -44,10 +44,10 @@ The dialog asks the compositor to open the window through
 passed as a single `-c` argument, with quotes and backslashes preserved: it
 is interpreted by Bash, not by Wippy's argument parser.
 
-The dialog is built on the shell SDK (`windows.shell.sdk:app`): a 32 px
+The dialog is built on the shell SDK (`chicago.shell.sdk:app`): a 32 px
 icon (the shell's own picture `run`), two hint lines as one multi-line
 label, an `input` field, the buttons "OK" (the default), "Cancel" and
-"Browse…" — the last one opens "My Computer" (`windows.shell.explorer:window`,
+"Browse…" — the last one opens "My Computer" (`chicago.shell.explorer:window`,
 which stays in the shell) and waits for the compositor's reply over the same
 channel, without closing the dialog. The window title is "Run"
 (`definition.title`), the ellipsis stays on the menu item. The size of
