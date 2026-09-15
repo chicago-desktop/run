@@ -1,6 +1,6 @@
 organization: chicago
 module: run
-description: The Start menu's Run… dialog of the Windows 95 shell (chicago/shell) — a command field that launches the command in its own Bash window of the desktop base; a dialog on the shell SDK, with its tests.
+description: The Start menu's Run… dialog of the Chicago desktop — a command field that launches the command in its own Bash window of the desktop base; a dialog on the shell SDK, with its tests.
 license: MIT
 repository: https://github.com/chicago-desktop/run
 homepage: https://wippy.ai

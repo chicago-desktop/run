@@ -1,7 +1,7 @@
 version: "1.0"
 namespace: chicago.run
 
-# "Run…" — the Start menu's run dialog of the Windows 95 shell
+# "Run…" — the Start menu's run dialog of the Chicago shell
 # (chicago/shell), moved out of the shell into a module of its own. A dialog
 # on the shell SDK: a command field, "OK", "Cancel", "Browse…". Enter or
 # "OK" launches the command in a Bash window of the desktop base — the base's
@@ -19,7 +19,7 @@ entries:
     kind: ns.definition
     meta:
       title: Run
-      description: "The Start menu's Run… dialog of the Windows 95 shell — a command field that launches the command in its own Bash window."
+      description: "The Start menu's Run… dialog of the Chicago desktop — a command field that launches the command in its own Bash window."
 
   # ─── Dependencies ────────────────────────────────────────────────────
   # A compatibility range, never an exact version: the lock holds the exact
@@ -28,7 +28,7 @@ entries:
     name: dep.chicago.shell
     kind: ns.dependency
     meta:
-      comment: The Windows 95 shell — its SDK lays out and draws the dialog and resolves the module's image pack, its explorer is what Browse… opens.
+      comment: The Chicago shell — its SDK lays out and draws the dialog and resolves the module's image pack, its explorer is what Browse… opens.
     component: chicago/shell
 
   - version: "*"

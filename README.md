@@ -1,6 +1,6 @@
 # chicago/run — Run…
 
-A module of the Windows 95 shell for the terminal desktop
+A module of the Chicago shell for the terminal desktop
 ([chicago/shell](https://github.com/chicago-desktop/shell) on
 [chicago/tui-desktop](https://github.com/chicago-desktop/tui-desktop)): the
 Start menu's **"Run…"** dialog, moved out of the shell into a module of its
@@ -30,7 +30,7 @@ an explicit empty group is the root.
   blocks.
 - `chicago.run:images` — the module's own pictures, an image pack of the
   shell under `assets/images` (32 and 16 px), copied from the shell's icon
-  set: Microsoft's artwork from `shell32.dll`, see `assets/images/SOURCE.md`.
+  set: an interim icon set, see `assets/images/SOURCE.md`.
 
 The module depends on `chicago/shell` (the SDK, the image packs, the explorer
 "Browse…" opens) and `chicago/tui-desktop` (the compositor and the PTY
@@ -70,11 +70,11 @@ window the command runs in).
 ## Developing
 
 ```bash
-make setup     # resolve the dependencies from the Hub (once, and after changing them)
+make setup     # resolve the dependencies (once, and after changing them)
 make check     # the repository's invariants
 make lint      # late locals, then wippy lint of this namespace and the harness
 make test      # the harness in test/: the dialog, the entry, a shot in test/shots/
-make publish   # to the Hub, after `wippy auth login`
+make publish   # publish a release, after `wippy auth login`
 ```
 
 **A local build of the runtime fork is required**
@@ -90,12 +90,12 @@ shell's guide, and the skill for agents in
 [skills/wippy-window-app/SKILL.md](skills/wippy-window-app/SKILL.md); the
 rules of this repository are in [AGENTS.md](AGENTS.md).
 
-Made from [the Windows module template](https://github.com/chicago-desktop/module-template)
-for modules of the Windows 95 shell. Repository:
+Made from [the Chicago module template](https://github.com/chicago-desktop/module-template)
+for modules of the Chicago shell. Repository:
 https://github.com/chicago-desktop/run.
 
 ## Licence
 
-MIT for the code. The pictures under `assets/images` are Microsoft's artwork
-from `shell32.dll`, copied from the shell's icon set, and are not under the
-module's licence (`assets/images/SOURCE.md`).
+The icon set is an interim one and is being replaced with original pixel art
+([chicago-desktop/shell#1](https://github.com/chicago-desktop/shell/issues/1));
+the code is MIT.
