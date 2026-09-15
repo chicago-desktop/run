@@ -24,12 +24,15 @@ an explicit empty group is the root.
   Pure; the tests exercise it without a compositor.
 - `windows.run:window` — the dialog on the shell's SDK
   (`windows.shell.sdk:app`): title "Run…" in the menu, "Run" on the window,
-  `window_type: dialog`, 50×10 cells, not resizable, the shell's picture
-  `run`. Launching is a `desktop.open` request to the compositor; the reply
-  arrives on a watched channel, so the dialog never blocks. It has no
-  pictures of its own and no image pack.
+  `window_type: dialog`, 50×10 cells, not resizable, its own picture
+  `windows.run:images/run`. Launching is a `desktop.open` request to the
+  compositor; the reply arrives on a watched channel, so the dialog never
+  blocks.
+- `windows.run:images` — the module's own pictures, an image pack of the
+  shell under `assets/images` (32 and 16 px), copied from the shell's icon
+  set: Microsoft's artwork from `shell32.dll`, see `assets/images/SOURCE.md`.
 
-The module depends on `windows/shell` (the SDK, the pictures, the explorer
+The module depends on `windows/shell` (the SDK, the image packs, the explorer
 "Browse…" opens) and `windows/tui-desktop` (the compositor and the PTY
 window the command runs in).
 
@@ -58,7 +61,7 @@ window the command runs in).
   menu, a command typed and launched, its output on the PTY screen, the
   shell still alive after the dialog closed; Esc in cells mode.
 - `test/src/window_test.lua` — the registry entry as the Start menu reads
-  it (title "Run…", `group: ""`, a dialog, the shell's picture found at 32
+  it (title "Run…", `group: ""`, a dialog, the module's picture found at 32
   and 16 px), the process running the definition, Esc closing it, and
   `test/shots/run.png`: the dialog with `claude --resume` typed, drawn by
   the shell's own renderer. Look at the picture: the geometry checks do not
@@ -93,5 +96,6 @@ https://github.com/wippy-windows/run.
 
 ## Licence
 
-MIT. The dialog's picture is the shell's; there is no artwork in this
-repository.
+MIT for the code. The pictures under `assets/images` are Microsoft's artwork
+from `shell32.dll`, copied from the shell's icon set, and are not under the
+module's licence (`assets/images/SOURCE.md`).

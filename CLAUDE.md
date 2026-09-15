@@ -27,7 +27,7 @@ What to know before the first edit:
   `return {run = function(options) return run_cases(options) end}`. Break a
   new test on purpose once.
 - **`wippy publish` packs only `src/`**; an `fs.directory` outside it ships
-  only when `wippy.yaml` lists it under `embed:`. This module has none: its
-  picture is the shell's `run`.
+  only when `wippy.yaml` lists it under `embed:`; the image pack under
+  `assets/images` (`windows.run:images`) is listed there.
 - **`${env:…}` in a registry entry** resolves against the environment
   registry, not the OS; `exec` does not inherit the OS environment either.

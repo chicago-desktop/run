@@ -28,7 +28,7 @@ entries:
     name: dep.windows.shell
     kind: ns.dependency
     meta:
-      comment: The Windows 95 shell — its SDK lays out and draws the dialog, its image pack brings the picture, its explorer is what Browse… opens.
+      comment: The Windows 95 shell — its SDK lays out and draws the dialog and resolves the module's image pack, its explorer is what Browse… opens.
     component: windows/shell
 
   - version: "*"
@@ -37,6 +37,21 @@ entries:
     meta:
       comment: The desktop base — the compositor that opens the Bash window the command runs in (its stock PTY window).
     component: windows/tui-desktop
+
+  # windows.run:images
+  #
+  # The shell finds an image pack in the registry by its meta.type and names a
+  # picture `<entry>/<file>`: `windows.run:images/run`. PNG in 32/ and 16/
+  # under assets/images; packed only because wippy.yaml lists the entry
+  # under `embed:`.
+  - name: images
+    kind: fs.directory
+    meta:
+      type: windows.images
+      comment: "The Run dialog's pictures — the run icon at 32 and 16 px, an image pack of the shell."
+    base: module
+    directory: ./assets/images
+    auto_init: false
 
   # windows.run:model
   - name: model
@@ -49,7 +64,8 @@ entries:
   #
   # The Start menu finds a `process.lua` with `meta.type: tui_desktop.window`.
   # `group: ""` puts it at the root of Start (without a group it would go to
-  # "Programs"); `image` names the shell's own picture `run`, `icon` its
+  # "Programs"); `image` names the module's own picture
+  # `windows.run:images/run`, `icon` its
   # character for a terminal without graphics; `window_type: dialog` and
   # `resizable: false` make it a fixed dialog. `pixel_render` + `pixel_state`
   # make the window draw through the shell's shared renderer in graphics
@@ -59,7 +75,7 @@ entries:
     meta:
       type: tui_desktop.window
       title: Run…
-      image: run
+      image: windows.run:images/run
       icon: "▸"
       order: 900
       # The root of "Start" explicitly: without group the program would go to "Programs".

@@ -51,7 +51,7 @@ definition.title = "Run"
 function definition.view(state: any, context: any): any
     return {kind = "column", padding = 1, padding_bottom = 0, gap = 0, children = {
         {kind = "row", size = 2, gap = 1, children = {
-            {kind = "image", size = 4, image = "run", icon = "▸", size_px = 32},
+            {kind = "image", size = 4, image = "windows.run:images/run", icon = "▸", size_px = 32},
             -- A failure takes the place of the hint: a separate line under the
             -- buttons pushed them away from the frame, and the hint is not
             -- needed at the moment of a failure.

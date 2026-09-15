@@ -1,5 +1,5 @@
 -- The dialog's registry entry as the Start menu reads it, the shell's
--- picture the entry names found by the shell, the process running the
+-- module's own picture the entry names found by the shell, the process running the
 -- definition, and a shot (test/shots/run.png) drawn by the shell's own
 -- renderer — evidence for the eye, next to the checks for the machine.
 local test = require("test")
@@ -42,7 +42,7 @@ end
 
 local function define_tests()
     test.describe("Run window", function()
-        test.it("is a dialog at the root of Start with the shell's picture at both sizes", function()
+        test.it("is a dialog at the root of Start with its own picture at both sizes", function()
             local entry = assert(registry.get("windows.run:window"))
             local meta: any = entry.meta
             test.eq(meta.type, "tui_desktop.window")
@@ -52,7 +52,7 @@ local function define_tests()
             test.eq(meta.window_type, "dialog")
             test.is_false(meta.resizable, "a dialog keeps its size")
             test.eq(tostring(meta.width) .. "x" .. tostring(meta.height), "50x10")
-            test.eq(meta.image, "run", "the picture is the shell's own")
+            test.eq(meta.image, "windows.run:images/run", "the picture is the module's own pack")
             test.eq(meta.pixel_render .. "|" .. meta.pixel_state, "windows.shell.sdk:render|windows.run:window")
             for _, size in ipairs({32, 16}) do
                 local picture, why = images.get(meta.image, size)

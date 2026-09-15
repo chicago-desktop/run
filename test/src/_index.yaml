@@ -50,12 +50,12 @@ entries:
     kind: function.lua
     meta:
       type: test
-      comment: "The dialog's registry entry as the Start menu reads it (Run… at the root, a dialog, the shell's picture found by the shell), the process running the definition, and test/shots/run.png drawn by the shell's renderer."
+      comment: "The dialog's registry entry as the Start menu reads it (Run… at the root, a dialog, the module's own picture found by the shell), the process running the definition, and test/shots/run.png drawn by the shell's renderer."
       group: Run
       suite: windows_run
     source: file://window_test.lua
     method: run
-    # Reading the shell's image pack takes `registry.get` as well as `fs.get`,
+    # Reading an image pack takes `registry.get` as well as `fs.get`,
     # and `gfx` to decode the picture; the shot reads the font from
     # app:system_fonts and writes the PNG to app:shots.
     modules: [gfx, fs, registry]
