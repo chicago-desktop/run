@@ -22,21 +22,24 @@ entries:
       description: "The Start menu's Run… dialog of the Chicago desktop — a command field that launches the command in its own Bash window."
 
   # ─── Dependencies ────────────────────────────────────────────────────
-  # A compatibility range, never an exact version: the lock holds the exact
-  # one. `*` is any published version.
-  - version: "*"
+  # The shell and the base are resolved from their GitHub repositories by
+  # tag — `component` names the repository, the module keeps its own name
+  # (chicago/shell, chicago/tui-desktop) in the lock. A compatibility range,
+  # never an exact version: the lock holds the exact one, and the range says
+  # what the module was written against (v0.2.0 is the first tag of both).
+  - version: ">=0.2.0"
     name: dep.chicago.shell
     kind: ns.dependency
     meta:
       comment: The Chicago shell — its SDK lays out and draws the dialog and resolves the module's image pack, its explorer is what Browse… opens.
-    component: chicago/shell
+    component: github.com/chicago-desktop/shell
 
-  - version: "*"
+  - version: ">=0.2.0"
     name: dep.chicago.tui_desktop
     kind: ns.dependency
     meta:
       comment: The desktop base — the compositor that opens the Bash window the command runs in (its stock PTY window).
-    component: chicago/tui-desktop
+    component: github.com/chicago-desktop/tui-desktop
 
   # chicago.run:images
   #
